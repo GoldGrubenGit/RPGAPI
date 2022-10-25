@@ -25,12 +25,6 @@ public class PlayerConnectionHandler implements Listener {
         Rpgapi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).setFood(food);
         Rpgapi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).setHealth(health);
 
-        try {
-            wait(2);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
         Rpgapi.getInstance().getStatsManager().unloadPlayerStats(event.getPlayer().getUniqueId());
     }
 }
