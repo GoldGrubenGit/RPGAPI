@@ -4,3 +4,6 @@ MySQL:
   user: 'root'
   password: ''
   database: 'RPG'
+
+Prefix: '§6RPG'
+Debug: '§4Debug-Message'

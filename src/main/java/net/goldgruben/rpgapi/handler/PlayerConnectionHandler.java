@@ -14,17 +14,24 @@ public class PlayerConnectionHandler implements Listener {
     public void handlePlayerJoin(final PlayerJoinEvent event) {
         final Player player = event.getPlayer();
         Rpgapi.getInstance().getStatsManager().loadPlayerStats(player.getUniqueId());
+
+        int health = Rpgapi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).getHealth();
+        int food = Rpgapi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).getFood();
+
+        player.setHealthScale(health);
+        player.setFoodLevel(food);
+        player.sendMessage(Rpgapi.getInstance().getConfig().getString("Debug") + "§4 Daten wurden geladen!");
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void handlePlayerQuit(final PlayerQuitEvent event) {
         Player player = event.getPlayer();
         int health = (int) player.getHealthScale();
-        int food = (int) player.getFoodLevel();
+        int food = player.getFoodLevel();
 
         Rpgapi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).setFood(food);
         Rpgapi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).setHealth(health);
 
-        Rpgapi.getInstance().getStatsManager().unloadPlayerStats(event.getPlayer().getUniqueId());
+        Rpgapi.getInstance().getStatsManager().unloadPlayerStats(player.getUniqueId());
     }
 }
