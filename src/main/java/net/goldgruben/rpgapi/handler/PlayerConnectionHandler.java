@@ -1,6 +1,6 @@
 package net.goldgruben.rpgapi.handler;
 
-import net.goldgruben.rpgapi.Rpgapi;
+import net.goldgruben.rpgapi.RpgApi;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -13,14 +13,14 @@ public class PlayerConnectionHandler implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void handlePlayerJoin(final PlayerJoinEvent event) {
         final Player player = event.getPlayer();
-        Rpgapi.getInstance().getStatsManager().loadPlayerStats(player.getUniqueId());
+        RpgApi.getInstance().getStatsManager().loadPlayerStats(player.getUniqueId());
 
-        int health = Rpgapi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).getHealth();
-        int food = Rpgapi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).getFood();
+        int health = RpgApi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).getHealth();
+        int food = RpgApi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).getFood();
 
         player.setHealthScale(health);
         player.setFoodLevel(food);
-        player.sendMessage(Rpgapi.getInstance().getConfig().getString("Debug") + "§4 Daten wurden geladen!");
+        player.sendMessage(RpgApi.getInstance().getConfig().getString("Debug") + "§4 Daten wurden geladen!");
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -29,9 +29,9 @@ public class PlayerConnectionHandler implements Listener {
         int health = (int) player.getHealthScale();
         int food = player.getFoodLevel();
 
-        Rpgapi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).setFood(food);
-        Rpgapi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).setHealth(health);
+        RpgApi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).setFood(food);
+        RpgApi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).setHealth(health);
 
-        Rpgapi.getInstance().getStatsManager().unloadPlayerStats(player.getUniqueId());
+        RpgApi.getInstance().getStatsManager().unloadPlayerStats(player.getUniqueId());
     }
 }

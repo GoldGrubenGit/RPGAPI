@@ -2,15 +2,14 @@ package net.goldgruben.rpgapi;
 
 import net.goldgruben.rpgapi.handler.PlayerConnectionHandler;
 import net.goldgruben.rpgapi.mysql.MySQLConnector;
-import net.goldgruben.rpgapi.mysql.users.PlayerStats;
 import net.goldgruben.rpgapi.mysql.users.StatsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Rpgapi extends JavaPlugin {
+public final class RpgApi extends JavaPlugin {
 
-    private static Rpgapi instance;
+    private static RpgApi instance;
     private StatsManager statsManager;
 
     private MySQLConnector mySQLConnector;
@@ -41,7 +40,7 @@ public final class Rpgapi extends JavaPlugin {
         // Plugin shutdown logic
     }
 
-    public static Rpgapi getInstance() {
+    public static RpgApi getInstance() {
         return instance;
     }
 
