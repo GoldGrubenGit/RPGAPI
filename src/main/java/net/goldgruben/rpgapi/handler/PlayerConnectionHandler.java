@@ -1,6 +1,6 @@
 package net.goldgruben.rpgapi.handler;
 
-import net.goldgruben.rpgapi.Rpgapi;
+import net.goldgruben.rpgapi.RpgApi;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -13,18 +13,25 @@ public class PlayerConnectionHandler implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void handlePlayerJoin(final PlayerJoinEvent event) {
         final Player player = event.getPlayer();
-        Rpgapi.getInstance().getStatsManager().loadPlayerStats(player.getUniqueId());
+        RpgApi.getInstance().getStatsManager().loadPlayerStats(player.getUniqueId());
+
+        int health = RpgApi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).getHealth();
+        int food = RpgApi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).getFood();
+
+        player.setHealthScale(health);
+        player.setFoodLevel(food);
+        player.sendMessage(RpgApi.getInstance().getConfig().getString("Debug") + "§4 Daten wurden geladen!");
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void handlePlayerQuit(final PlayerQuitEvent event) {
         Player player = event.getPlayer();
         int health = (int) player.getHealthScale();
-        int food = (int) player.getFoodLevel();
+        int food = player.getFoodLevel();
 
-        Rpgapi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).setFood(food);
-        Rpgapi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).setHealth(health);
+        RpgApi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).setFood(food);
+        RpgApi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).setHealth(health);
 
-        Rpgapi.getInstance().getStatsManager().unloadPlayerStats(event.getPlayer().getUniqueId());
+        RpgApi.getInstance().getStatsManager().unloadPlayerStats(player.getUniqueId());
     }
 }

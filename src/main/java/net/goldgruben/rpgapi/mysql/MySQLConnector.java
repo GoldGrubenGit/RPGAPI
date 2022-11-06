@@ -1,6 +1,6 @@
 package net.goldgruben.rpgapi.mysql;
 
-import net.goldgruben.rpgapi.Rpgapi;
+import net.goldgruben.rpgapi.RpgApi;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,11 +17,11 @@ public class MySQLConnector {
         static String password;
 
         static {
-            host = Rpgapi.getInstance().getConfig().getString("MySql.host");
-            port = Rpgapi.getInstance().getConfig().getString("MySql.port");
-            database = Rpgapi.getInstance().getConfig().getString("MySql.database");
-            username = Rpgapi.getInstance().getConfig().getString("MySql.user");
-            password = Rpgapi.getInstance().getConfig().getString("MySql.password");
+            host = RpgApi.getInstance().getConfig().getString("MySql.host");
+            port = RpgApi.getInstance().getConfig().getString("MySql.port");
+            database = RpgApi.getInstance().getConfig().getString("MySql.database");
+            username = RpgApi.getInstance().getConfig().getString("MySql.user");
+            password = RpgApi.getInstance().getConfig().getString("MySql.password");
         }
 
         public static void connect() {

@@ -1,16 +1,20 @@
 package net.goldgruben.rpgapi;
 
+import net.goldgruben.rpgapi.handler.PlayerConnectionHandler;
 import net.goldgruben.rpgapi.mysql.MySQLConnector;
-import net.goldgruben.rpgapi.mysql.users.PlayerStats;
 import net.goldgruben.rpgapi.mysql.users.StatsManager;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Rpgapi extends JavaPlugin {
+public final class RpgApi extends JavaPlugin {
 
-    private static Rpgapi instance;
+    private static RpgApi instance;
     private StatsManager statsManager;
-    private PlayerStats playerStats;
+
     private MySQLConnector mySQLConnector;
+
+    private API api;
 
     @Override
     public void onEnable() {
@@ -19,7 +23,10 @@ public final class Rpgapi extends JavaPlugin {
         MySQLConnector mySQLConnector = new MySQLConnector();
         mySQLConnector.connect();
         StatsManager statsManager = new StatsManager();
+        api = new API();
         // Plugin startup logic
+        PluginManager pluginManager = Bukkit.getPluginManager();
+        pluginManager.registerEvents(new PlayerConnectionHandler(), this);
 
     }
 
@@ -33,15 +40,14 @@ public final class Rpgapi extends JavaPlugin {
         // Plugin shutdown logic
     }
 
-    public static Rpgapi getInstance() {
+    public static RpgApi getInstance() {
         return instance;
-    }
-
-    public PlayerStats getPlayerStats() {
-        return playerStats;
     }
 
     public StatsManager getStatsManager() {
         return statsManager;
+    }
+    public API getApi() {
+        return api;
     }
 }
