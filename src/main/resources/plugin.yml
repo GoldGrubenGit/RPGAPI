@@ -1,5 +1,5 @@
 name: Rpgapi
 version: '${project.version}'
-main: net.goldgruben.rpgapi.Rpgapi
+main: net.goldgruben.rpgapi.RpgAPI
 api-version: 1.18
-authors: [ Raphael ]
+authors: [ Raphael, Asedem ]

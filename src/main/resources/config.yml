@@ -1,9 +1,9 @@
-MySQL:
+mysql:
   host: 'localhost'
-  port: '3306'
+  port: 3306
   user: 'root'
   password: ''
   database: 'RPG'
 
-Prefix: '§6RPG'
-Debug: '§4Debug-Message'
+prefix: '&6RPG'
+debug: '&4Debug-Message'
