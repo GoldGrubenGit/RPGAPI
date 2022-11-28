@@ -17,6 +17,9 @@ public class PlayerStats {
             health,
             food;
 
+    private String volk,
+                   geschlecht;
+
     public PlayerStats(UUID uuid) {
         this.uuid = uuid;
         this.bronze = 100;
@@ -28,9 +31,11 @@ public class PlayerStats {
         this.mana = 100;
         this.health = 20;
         this.food = 20;
+        this.volk = null;
+        this.geschlecht = null;
     }
 
-    public PlayerStats(UUID uuid, int level, int xp, int bronze, int silber, int gold, int kristalle, int health, int food, int mana) {
+    public PlayerStats(UUID uuid, int level, int xp, int bronze, int silber, int gold, int kristalle, int health, int food, int mana, String volk, String geschlecht) {
         this.uuid = uuid;
         this.level = level;
         this.xp = xp;
@@ -41,6 +46,8 @@ public class PlayerStats {
         this.health = health;
         this.food = food;
         this.mana = mana;
+        this.volk = volk;
+        this.geschlecht = geschlecht;
     }
 
     public UUID getUuid() {
@@ -99,5 +106,17 @@ public class PlayerStats {
     }
     public void setMana(int mana) {
         this.mana = mana;
+    }
+    public String getVolk() {
+        return volk;
+    }
+    public String getGeschlecht() {
+        return geschlecht;
+    }
+    public void setGeschlecht(String geschlecht) {
+        this.geschlecht = geschlecht;
+    }
+    public void setVolk(String volk) {
+        this.volk = volk;
     }
 }
