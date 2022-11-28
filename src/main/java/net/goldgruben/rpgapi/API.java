@@ -158,4 +158,14 @@ public class API {
         i = i - amount;
         RpgApi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).setMana(i);
     }
+
+    public String getVolk(Player player) {
+        String volk = RpgApi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).getVolk();
+        return volk;
+    }
+
+    public String getGeschlecht(Player player) {
+        String geschlecht = RpgApi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).getGeschlecht();
+        return geschlecht;
+    }
 }

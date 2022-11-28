@@ -8,61 +8,50 @@ import java.sql.SQLException;
 
 public class MySQLConnector {
 
+    /* Variables */
 
-        static Connection con;
-        static String host;
-        static String port;
-        static String database;
-        static String username;
-        static String password;
+    private static Connection connection;
 
-        static {
-            host = RpgApi.getInstance().getConfig().getString("MySql.host");
-            port = RpgApi.getInstance().getConfig().getString("MySql.port");
-            database = RpgApi.getInstance().getConfig().getString("MySql.database");
-            username = RpgApi.getInstance().getConfig().getString("MySql.user");
-            password = RpgApi.getInstance().getConfig().getString("MySql.password");
+    /* Methods */
+    public static void connect(String host, String database, int port, String password, String user) {
+        if (host == null || database == null || password == null || user == null) return;
+
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true&maxReconnects=10", user, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+    }
 
-        public static void connect() {
-            if (!MySQLConnector.isConected()) {
-                try {
-                    Class.forName("com.mysql.jdbc.Driver");
-                } catch (ClassNotFoundException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
-                try {
-                    con = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true", username, password);
-                    System.out.println("MySQL verbunden!");
-                }
-                catch (SQLException e) {
-                    e.printStackTrace();
-                }
+    public static void disconnect() {
+        try {
+            if (isConnected()) {
+                connection.close();
             }
+        } catch (SQLException e) {
+            System.out.println("§cError while closing connection to database");
+            e.printStackTrace();
         }
+    }
 
-
-        public static void disconnect() {
-            if (MySQLConnector.isConected()) {
-                try {
-                    con.close();
-                    System.out.println("Mysql geschlossen!");
-                }
-                catch (SQLException e) {
-                    e.printStackTrace();
-                }
+    public static boolean isConnected() {
+        if (connection != null)
+            try {
+                return !connection.isClosed();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        }
-        public static boolean isConected() {
-            return con != null;
-        }
+        return false;
+    }
 
-        public static Connection getConnection() {
-            if (MySQLConnector.isConected()) {
-                return con;
-            }
-            return null;
-        }
+    public static boolean isConected() {
+        return connection != null;
+    }
 
+    public static Connection getConnection() {
+        if (MySQLConnector.isConected()) {
+            return connection;
+        }
+        return null;
+    }
 }

@@ -18,13 +18,15 @@ public class StatsManager {
                         "\t `uuid` VARCHAR(36) CHARACTER SET utf8 COLLATE  utf8_general_ci NOT NULL, \n" +
                         "\t `level` INT NOT NULL DEFAULT '1', \n" +
                         "\t `xp` INT NOT NULL DEFAULT '0', \n" +
-                        "\t `kirstalle` INT NOT NULL DEFAULT '10', \n" +
+                        "\t `kristalle` INT NOT NULL DEFAULT '10', \n" +
                         "\t `bronze` INT NOT NULL DEFAULT '100', \n" +
                         "\t `silber` INT NOT NULL DEFAULT '0', \n" +
                         "\t `gold` INT NOT NULL DEFAULT '0', \n" +
                         "\t `health` INT NOT NULL DEFAULT '20', \n" +
                         "\t `food` INT NOT NULL DEFAULT '20', \n" +
                         "\t `mana` INT NOT NULL DEFAULT '100', \n" +
+                        "\t `volk` VARCHAR(36) DEFAULT NULL, \t" +
+                        "\t `geschlecht` VARCHAR(36) DEFAULT NULL, \t" +
                         "\tPRIMARY KEY (`uuid`)\n" +
                         ");").executeUpdate();
             } catch (SQLException throwables) {
@@ -44,9 +46,9 @@ public class StatsManager {
             savePlayerStats(getPlayerStats(uuid), true);
         }
 
-        public void savePlayerStats(PlayerStats playerStats, boolean removeFromeCache) {
+        public void savePlayerStats(PlayerStats playerStats, boolean removeFromCache) {
             updatePlayerStats(playerStats.getUuid(), playerStats);
-            if(removeFromeCache) {
+            if(removeFromCache) {
                 cachedPlayerStatsMap.remove(playerStats.getUuid());
             }
         }
@@ -72,7 +74,7 @@ public class StatsManager {
             try {
                 ResultSet resultSet = MySQLConnector.getConnection().prepareStatement("SELECT * FROM `playerdata` WHERE `uuid` = '" + uuid.toString() + "'").executeQuery();
                 if(resultSet.next()) {
-                    playerStats = new PlayerStats(uuid, resultSet.getInt("level"), resultSet.getInt("xp"), resultSet.getInt("bronze"), resultSet.getInt("silber"), resultSet.getInt("gold"), resultSet.getInt("kristalle"), resultSet.getInt("health"), resultSet.getInt("food"), resultSet.getInt("mana"));
+                    playerStats = new PlayerStats(uuid, resultSet.getInt("level"), resultSet.getInt("xp"), resultSet.getInt("bronze"), resultSet.getInt("silber"), resultSet.getInt("gold"), resultSet.getInt("kristalle"), resultSet.getInt("health"), resultSet.getInt("food"), resultSet.getInt("mana"), resultSet.getString("volk"), resultSet.getString("geschlecht"));
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -86,7 +88,7 @@ public class StatsManager {
 
         public void updatePlayerStats(UUID uuid, PlayerStats playerStats) {
             try {
-                MySQLConnector.getConnection().prepareStatement("UPDATE `playerdata` SET `level` = '" + playerStats.getLevel() + "', `xp` = '" + playerStats.getXp() + "', `bronze` = '" + playerStats.getBronze() + "',  `silber` = '" + playerStats.getSilber() +  "', `gold` = '" + playerStats.getGold() + "', `kristalle` = '" + playerStats.getKristalle() + "', `health` = '" + playerStats.getHealth() + "', `food` = '" + playerStats.getFood() + "', `mana` = '" + playerStats.getMana() + "' WHERE `uuid` = '" + playerStats.getUuid().toString() + "'");
+                MySQLConnector.getConnection().prepareStatement("UPDATE `playerdata` SET `level` = '" + playerStats.getLevel() + "', `xp` = '" + playerStats.getXp() + "', `bronze` = '" + playerStats.getBronze() + "',  `silber` = '" + playerStats.getSilber() +  "', `gold` = '" + playerStats.getGold() + "', `kristalle` = '" + playerStats.getKristalle() + "', `health` = '" + playerStats.getHealth() + "', `food` = '" + playerStats.getFood() + "', `mana` = '" + playerStats.getMana() + "', `volk` = '" + playerStats.getVolk() + "', `geschlecht` = '" + playerStats.getGeschlecht() + "' WHERE `uuid` = '" + playerStats.getUuid().toString() + "'");
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }

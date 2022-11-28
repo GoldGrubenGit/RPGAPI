@@ -16,15 +16,27 @@ public final class RpgApi extends JavaPlugin {
 
     private API api;
 
+    static String host;
+    private int port = RpgApi.getInstance().getConfig().getInt("MySql.port");
+    static String database;
+    static String username;
+    static String password;
+
+    static {
+        host = RpgApi.getInstance().getConfig().getString("MySql.host");
+        database = RpgApi.getInstance().getConfig().getString("MySql.database");
+        username = RpgApi.getInstance().getConfig().getString("MySql.user");
+        password = RpgApi.getInstance().getConfig().getString("MySql.password");
+    }
+
     @Override
     public void onEnable() {
         instance = this;
         loadConfig();
         MySQLConnector mySQLConnector = new MySQLConnector();
-        mySQLConnector.connect();
+        mySQLConnector.connect(host, database, port, password, username);
         StatsManager statsManager = new StatsManager();
         api = new API();
-        // Plugin startup logic
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new PlayerConnectionHandler(), this);
 
