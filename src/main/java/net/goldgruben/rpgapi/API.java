@@ -41,6 +41,21 @@ public class API {
         return mana;
     }
 
+    public String getVolk(Player player) {
+        String volk = RpgApi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).getVolk();
+        return volk;
+    }
+
+    public String getGeschlecht(Player player) {
+        String geschlecht = RpgApi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).getGeschlecht();
+        return geschlecht;
+    }
+
+    public String getJob(Player player) {
+        String job = RpgApi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).getJob();
+        return job;
+    }
+
     //setter
 
     public void setBronze(Player player, int amount) {
@@ -69,6 +84,18 @@ public class API {
 
     public void setKristalle(Player player, int amount) {
         RpgApi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).setKristalle(amount);
+    }
+
+    public void setVolk(Player player, String volk) {
+        RpgApi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).setVolk(volk);
+    }
+
+    public void setGeschlecht(Player player, String geschlecht) {
+        RpgApi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).setGeschlecht(geschlecht);
+    }
+
+    public void setJob(Player player, String Job) {
+        RpgApi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).setJob(Job);
     }
 
     //adder
@@ -159,13 +186,4 @@ public class API {
         RpgApi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).setMana(i);
     }
 
-    public String getVolk(Player player) {
-        String volk = RpgApi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).getVolk();
-        return volk;
-    }
-
-    public String getGeschlecht(Player player) {
-        String geschlecht = RpgApi.getInstance().getStatsManager().getPlayerStats(player.getUniqueId()).getGeschlecht();
-        return geschlecht;
-    }
 }

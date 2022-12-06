@@ -18,7 +18,8 @@ public class PlayerStats {
             food;
 
     private String volk,
-                   geschlecht;
+                   geschlecht,
+                   job;
 
     public PlayerStats(UUID uuid) {
         this.uuid = uuid;
@@ -33,9 +34,10 @@ public class PlayerStats {
         this.food = 20;
         this.volk = null;
         this.geschlecht = null;
+        this.job = null;
     }
 
-    public PlayerStats(UUID uuid, int level, int xp, int bronze, int silber, int gold, int kristalle, int health, int food, int mana, String volk, String geschlecht) {
+    public PlayerStats(UUID uuid, int level, int xp, int bronze, int silber, int gold, int kristalle, int health, int food, int mana, String volk, String geschlecht, String job) {
         this.uuid = uuid;
         this.level = level;
         this.xp = xp;
@@ -48,6 +50,7 @@ public class PlayerStats {
         this.mana = mana;
         this.volk = volk;
         this.geschlecht = geschlecht;
+        this.job = job;
     }
 
     public UUID getUuid() {
@@ -118,5 +121,11 @@ public class PlayerStats {
     }
     public void setVolk(String volk) {
         this.volk = volk;
+    }
+    public String getJob() {
+        return job;
+    }
+    public void setJob(String job) {
+        this.job = job;
     }
 }
