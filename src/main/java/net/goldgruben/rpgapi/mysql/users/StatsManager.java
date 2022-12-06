@@ -27,6 +27,7 @@ public class StatsManager {
                         "\t `mana` INT NOT NULL DEFAULT '100', \n" +
                         "\t `volk` VARCHAR(36) DEFAULT NULL, \t" +
                         "\t `geschlecht` VARCHAR(36) DEFAULT NULL, \t" +
+                        "\t `job` VARCHAR(36) DEFAULT NULL, \t" +
                         "\tPRIMARY KEY (`uuid`)\n" +
                         ");").executeUpdate();
             } catch (SQLException throwables) {
@@ -74,7 +75,7 @@ public class StatsManager {
             try {
                 ResultSet resultSet = MySQLConnector.getConnection().prepareStatement("SELECT * FROM `playerdata` WHERE `uuid` = '" + uuid.toString() + "'").executeQuery();
                 if(resultSet.next()) {
-                    playerStats = new PlayerStats(uuid, resultSet.getInt("level"), resultSet.getInt("xp"), resultSet.getInt("bronze"), resultSet.getInt("silber"), resultSet.getInt("gold"), resultSet.getInt("kristalle"), resultSet.getInt("health"), resultSet.getInt("food"), resultSet.getInt("mana"), resultSet.getString("volk"), resultSet.getString("geschlecht"));
+                    playerStats = new PlayerStats(uuid, resultSet.getInt("level"), resultSet.getInt("xp"), resultSet.getInt("bronze"), resultSet.getInt("silber"), resultSet.getInt("gold"), resultSet.getInt("kristalle"), resultSet.getInt("health"), resultSet.getInt("food"), resultSet.getInt("mana"), resultSet.getString("volk"), resultSet.getString("geschlecht"), resultSet.getString("job"));
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -88,7 +89,7 @@ public class StatsManager {
 
         public void updatePlayerStats(UUID uuid, PlayerStats playerStats) {
             try {
-                MySQLConnector.getConnection().prepareStatement("UPDATE `playerdata` SET `level` = '" + playerStats.getLevel() + "', `xp` = '" + playerStats.getXp() + "', `bronze` = '" + playerStats.getBronze() + "',  `silber` = '" + playerStats.getSilber() +  "', `gold` = '" + playerStats.getGold() + "', `kristalle` = '" + playerStats.getKristalle() + "', `health` = '" + playerStats.getHealth() + "', `food` = '" + playerStats.getFood() + "', `mana` = '" + playerStats.getMana() + "', `volk` = '" + playerStats.getVolk() + "', `geschlecht` = '" + playerStats.getGeschlecht() + "' WHERE `uuid` = '" + playerStats.getUuid().toString() + "'");
+                MySQLConnector.getConnection().prepareStatement("UPDATE `playerdata` SET `level` = '" + playerStats.getLevel() + "', `xp` = '" + playerStats.getXp() + "', `bronze` = '" + playerStats.getBronze() + "',  `silber` = '" + playerStats.getSilber() +  "', `gold` = '" + playerStats.getGold() + "', `kristalle` = '" + playerStats.getKristalle() + "', `health` = '" + playerStats.getHealth() + "', `food` = '" + playerStats.getFood() + "', `mana` = '" + playerStats.getMana() + "', `volk` = '" + playerStats.getVolk() + "', `geschlecht` = '" + playerStats.getGeschlecht() + playerStats.getJob() + "' WHERE `uuid` = '" + playerStats.getUuid().toString() + "'");
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
